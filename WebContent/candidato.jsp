@@ -51,10 +51,11 @@
 					</h2>
 				</caption>
 
-				<c:if test="${candidato != null}">
-					<input type="hidden" name="id"
-						value="<c:out value='${usuario.id}' />" />
-				</c:if>
+				<fieldset class="form-group">
+					<label>ID</label> <input type="text"
+						value="<c:out value='${candidato.id}'/>" class="form-control"
+						name="id" required="required">
+				</fieldset>
 
 				<fieldset class="form-group">
 					<label>Documento</label> <input type="text"
@@ -75,8 +76,8 @@
 				</fieldset>
 
 
-				<fieldset>
-					<select class="form-select" name="eleccion">
+				<fieldset class="form-group">
+					<label>Elección</label> <select class="form-select" name="eleccion">
 						<option selected>Seleccione Una</option>
 						<c:forEach var="dd" items="${listEleccion}">
 							<option value='${dd.id}'>"${dd.nombre}"</option>
@@ -85,12 +86,12 @@
 				</fieldset>
 
 				<fieldset class="form-group">
-					<label>Pais de Usuario</label> <input type="text"
-						value="<c:out value='${usuario.pais}'/>" class="form-control"
-						name="pais">
+					<label>Numero</label> <input type="text"
+						value="<c:out value='${candidato.numero}'/>" class="form-control"
+						name="numero">
 				</fieldset>
 
-				<button type="submit" class="btn btn-success">Guardar</button>
+				<button type="submit" class="btn btn-success">Enviar</button>
 
 				</form>
 

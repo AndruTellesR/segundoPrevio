@@ -16,6 +16,17 @@ public class Candidato implements Serializable{
 	public Candidato() {
 	}
 	
+	
+	
+	public Candidato(int id, String documento, String nombre, String apellido, int eleccion, int numero) {
+		this.id = id;
+		this.documento = documento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.eleccion = eleccion;
+		this.numero = numero;
+	}
+
 	public Candidato(int id){
 		this.id = id;
 	}

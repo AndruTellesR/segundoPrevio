@@ -28,7 +28,7 @@ public class EleccionDao implements Serializable {
 				this.query.getEntity().setNombre(this.query.getRs().getString(2));
 				this.query.getEntity().setFecha_inicio(this.query.getRs().getString(3));
 				this.query.getEntity().setFecha_fin(this.query.getRs().getString(4));
-				this.query.getEntity().setCargo(this.query.getRs().getInt(5));
+				this.query.getEntity().setCargo(this.query.getRs().getString(5));
 				this.query.getList().add(this.query.getEntity());
 			}
 		} catch (SQLException e) {

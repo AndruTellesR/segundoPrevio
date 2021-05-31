@@ -84,8 +84,8 @@ public class IndexServlet extends HttpServlet {
 			init();
 		}
 		System.out.println(eleccion);
-		
-		List<Candidato> list =  (eleccion != null) ? dao.list(eleccion): dao.list();
+
+		List<Candidato> list = (eleccion != null) ? dao.list(eleccion) : dao.list();
 		request.setAttribute("listCandidato", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("candidatoList.jsp");
 		dispatcher.forward(request, response);
@@ -102,15 +102,45 @@ public class IndexServlet extends HttpServlet {
 
 	private void insert(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+		String id = request.getParameter("id");
+		String documento = request.getParameter("documento");
+		String nombre = request.getParameter("nombre");
+		String apellido = request.getParameter("apellido");
+		String eleccion = request.getParameter("eleccion");
+		String numero = request.getParameter("numero");
 
+		Candidato c = new Candidato(Integer.parseInt(id), documento, nombre, apellido, Integer.parseInt(eleccion),
+				Integer.parseInt(numero));
+		if (dao == null) {
+			init();
+		}
+		dao.insert(c);
+		response.sendRedirect("list");
 	}
 
-	private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-
+	private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		String id = request.getParameter("id");
+		String documento = request.getParameter("documento");
+		String nombre = request.getParameter("nombre");
+		String apellido = request.getParameter("apellido");
+		String eleccion = request.getParameter("eleccion");
+		String numero = request.getParameter("numero");
+		Candidato c = new Candidato(Integer.parseInt(id), documento, nombre, apellido, Integer.parseInt(eleccion),
+				Integer.parseInt(numero));
+		if (dao == null) {
+			this.init();
+		}
+		dao.update(c);
+		response.sendRedirect("list");
 	}
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		String id = request.getParameter("id");
+		if (dao == null) {
+			this.init();
+		}
+		dao.delete(Integer.parseInt(id));
+		response.sendRedirect("list");
 	}
 
 	private void showEdit(HttpServletRequest request, HttpServletResponse response)
