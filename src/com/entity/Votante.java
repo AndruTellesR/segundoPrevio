@@ -3,6 +3,9 @@ package com.entity;
 import java.io.Serializable;
 
 public class Votante implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String nombre;
 	private String email;

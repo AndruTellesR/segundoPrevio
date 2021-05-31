@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.CandidatoDao;
-import com.entity.Candidato;
+import com.dao.*;
+import com.entity.*;
 
 @WebServlet("/")
 public class IndexServlet extends HttpServlet {
@@ -79,10 +79,13 @@ public class IndexServlet extends HttpServlet {
 	////////////////////////////////////////////////
 	private void list(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
+		String eleccion = request.getParameter("eleccion");
 		if (dao == null) {
 			init();
 		}
-		List<Candidato> list = dao.list();
+		System.out.println(eleccion);
+		
+		List<Candidato> list =  (eleccion != null) ? dao.list(eleccion): dao.list();
 		request.setAttribute("listCandidato", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("candidatoList.jsp");
 		dispatcher.forward(request, response);
@@ -90,6 +93,9 @@ public class IndexServlet extends HttpServlet {
 
 	private void showViewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		EleccionDao eDao = new EleccionDao();
+		List<Eleccion> list = eDao.list();
+		request.setAttribute("listEleccion", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("candidato.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -109,7 +115,11 @@ public class IndexServlet extends HttpServlet {
 
 	private void showEdit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
-
+		EleccionDao eDao = new EleccionDao();
+		List<Eleccion> list = eDao.list();
+		request.setAttribute("listEleccion", list);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("candidato.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

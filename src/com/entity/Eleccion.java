@@ -10,7 +10,7 @@ public class Eleccion implements Serializable{
 	private String nombre;
 	private String fecha_inicio;
 	private String fecha_fin;
-	private int cargo;
+	private String cargo;
 	
 	public Eleccion() {
 	}
@@ -43,10 +43,10 @@ public class Eleccion implements Serializable{
 	public void setFecha_fin(String fecha_fin) {
 		this.fecha_fin = fecha_fin;
 	}
-	public int getCargo() {
+	public String getCargo() {
 		return cargo;
 	}
-	public void setCargo(int cargo) {
+	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
 	public static long getSerialversionuid() {

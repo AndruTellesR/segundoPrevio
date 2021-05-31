@@ -41,6 +41,32 @@ public class CandidatoDao implements Serializable {
 		}
 		return this.query.getList();
 	}
+	
+	public List<Candidato> list(String id) {
+		this.query = new QueryGeneric<Candidato>();
+		this.query.setQuery("SELECT * FROM candidato WHERE eleccion = "+id);
+		System.out.println(this.query.getQuery());
+		this.query.setList(new ArrayList<Candidato>());
+		try {
+			this.query.setPs(ConnectionGeneric.getC().prepareStatement(this.query.getQuery()));
+			this.query.setRs(this.query.getPs().executeQuery());
+			while (this.query.getRs().next()) {
+				this.query.setEntity(new Candidato());
+				this.query.getEntity().setId(this.query.getRs().getInt(1));
+				this.query.getEntity().setDocumento(this.query.getRs().getString(2));
+				this.query.getEntity().setNombre(this.query.getRs().getString(3));
+				this.query.getEntity().setApellido(this.query.getRs().getString(4));
+				this.query.getEntity().setEleccion(this.query.getRs().getInt(5));
+				this.query.getEntity().setNumero(this.query.getRs().getInt(6));
+				this.query.getList().add(this.query.getEntity());
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			// ConnectionGeneric.close();
+		}
+		return this.query.getList();
+	}
 
 	public void insert(Candidato t) {
 		if (t != null) {
