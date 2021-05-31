@@ -54,8 +54,12 @@ public class IndexServlet extends HttpServlet {
 			case "/update":
 				update(request, response);
 				break;
-			default:
+				
+			case "/list":
 				list(request, response);
+				break;
+			default:
+				showViewForm(request, response);
 				break;
 			}
 		} catch (Exception e) {
@@ -102,12 +106,20 @@ public class IndexServlet extends HttpServlet {
 
 	private void insert(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+		System.out.println("ssss");
 		String id = request.getParameter("id");
 		String documento = request.getParameter("documento");
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
 		String eleccion = request.getParameter("eleccion");
 		String numero = request.getParameter("numero");
+		
+		System.out.println(id);
+		System.out.println(documento);
+		System.out.println(nombre);
+		System.out.println(apellido);
+		System.out.println(eleccion);
+		System.out.println(numero);
 
 		Candidato c = new Candidato(Integer.parseInt(id), documento, nombre, apellido, Integer.parseInt(eleccion),
 				Integer.parseInt(numero));
@@ -115,6 +127,7 @@ public class IndexServlet extends HttpServlet {
 			init();
 		}
 		dao.insert(c);
+		System.out.println("Insert");
 		response.sendRedirect("list");
 	}
 
@@ -145,9 +158,15 @@ public class IndexServlet extends HttpServlet {
 
 	private void showEdit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
+		String id = request.getParameter("id");
+		if (dao == null) {
+			this.init();
+		}
+		Candidato c =  dao.find(id);
 		EleccionDao eDao = new EleccionDao();
 		List<Eleccion> list = eDao.list();
 		request.setAttribute("listEleccion", list);
+		request.setAttribute("candidato", c);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("candidato.jsp");
 		dispatcher.forward(request, response);
 	}

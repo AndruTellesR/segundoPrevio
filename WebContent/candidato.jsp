@@ -37,11 +37,11 @@
 			<div class="card-body">
 
 				<c:if test="${candidato != null}">
-					<form action="update" method="post">
+					<form action="update" method="get">
 				</c:if>
 
 				<c:if test="${candidato == null}">
-					<form action="insert" method="post">
+					<form action="insert" method="get">
 				</c:if>
 
 				<caption>
